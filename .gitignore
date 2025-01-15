@@ -60,3 +60,5 @@ notebooks/01_local_dask_files/
 site_libs/
 **/*.html
 _book/
+**/*.zarr.zip
+**/*.zarr
