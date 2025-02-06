@@ -1,0 +1,15 @@
+  Daskclient:
+    memory_limit: 28GB
+    n_workers: 3
+    processes: False
+    threads_per_worker: 2
+  base:
+    crs: "EPSG:4326"
+    chunks:
+      time: 1
+      latitude: 1300
+      longitude: 1300
+    resolution: 0.00018
+    bbox: [12.3, 54.3, 13.1, 54.6]
+    groupby: Null
+
