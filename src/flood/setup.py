@@ -2,6 +2,7 @@ import yaml
 import dask
 from dask.distributed import Client, wait
 from pathlib import Path
+import pystac_client
 
 dask.config.set(temporary_directory='/tmp')
 client = Client(processes=False, threads_per_worker=2,
@@ -15,3 +16,23 @@ def load_config(yaml_file):
 
 CONFIG_PATH = Path(__file__).resolve().parent / "config.yaml"
 config = load_config(CONFIG_PATH)
+
+def initialize_catalog():
+    eodc_catalog = pystac_client.Client.open("https://stac.eodc.eu/api/v1")
+    return eodc_catalog
+
+def initialize_search(eodc_catalog, bbox, time_range):
+    search = eodc_catalog.search(
+    collections="SENTINEL1_SIG0_20M",
+    bbox=bbox,
+    datetime=time_range,
+)
+    return search
+
+def search_parameters(eodc_catalog, bbox, collections):
+    search = eodc_catalog.search(
+        collections=collections, #"SENTINEL1_HPAR" or "SENTINEL1_MPLIA"
+        bbox=bbox
+        )
+
+    return search 

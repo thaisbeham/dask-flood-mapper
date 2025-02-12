@@ -1,5 +1,37 @@
 import xarray as xr
 import numpy as np
+import numpy as np
+import xarray as xr
+from dask.distributed import wait
+
+def calculate_flood_dc(sig0_dc, plia_dc, hpar_dc, wcover_dc):
+    """Merge four data cubes and apply processing steps to clean and filter the dataset."""
+    
+    flood_dc = xr.merge([sig0_dc, plia_dc, hpar_dc, wcover_dc])
+
+    flood_dc = flood_dc.where(flood_dc.wcover != 80)
+
+    flood_dc = (flood_dc
+                .reset_index("orbit", drop=True)
+                .rename({"orbit": "time"})
+                .dropna(dim="time", how="all", subset=["sig0"]))
+
+    flood_dc = flood_dc.persist()
+    wait(flood_dc) 
+
+    return flood_dc
+
+def remove_speckles(flood_output, window_size=5):
+    """Apply a rolling median filter to smooth the dataset spatially over longitude and latitude."""
+    
+    flood_output = (flood_output
+                    .rolling({"longitude": window_size, "latitude": window_size}, center=True)
+                    .median(skipna=True)
+                    .persist())
+
+    wait(flood_output) 
+    
+    return flood_output
 
 def calc_water_likelihood(dc):
     return  dc.MPLIA * -0.394181 + -4.142015
