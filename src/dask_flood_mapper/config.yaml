@@ -1,0 +1,11 @@
+  base:
+    crs: "EPSG:4326"
+    chunks:
+      time: 1
+      latitude: 1300
+      longitude: 1300
+    resolution: 0.00018
+    bbox: [12.3, 54.3, 13.1, 54.6]
+    groupby: Null
+  api: "https://stac.eodc.eu/api/v1"
+
