@@ -11,7 +11,7 @@ crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
 resolution =  config["base"]["resolution"]
 groupby = config["base"]["groupby"]
-bands_hpar= ("C1", "C2", "C3", "M0", "S1", "S2", "S3", "STD") # not possible to add to yaml file since is a ("a", "v") type
+bands_hpar= ("C1", "C2", "C3", "M0", "S1", "S2", "S3", "STD") # not possible to add to yaml file since it is a tuple data type
 bands_plia = "MPLIA"
 
 
