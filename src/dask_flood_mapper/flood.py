@@ -62,15 +62,4 @@ def decision(bbox, datetime):
     flood_output = remove_speckles(flood_output)
 
     return flood_output
-
-
-
-
-
-
-
-
-
-
-
-
+  
