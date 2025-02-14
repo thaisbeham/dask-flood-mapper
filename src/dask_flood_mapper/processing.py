@@ -1,7 +1,7 @@
 import xarray as xr
 import numpy as np
 from odc import stac as odc_stac
-from flood.setup import config
+from dask_flood_mapper.setup import config
 import numpy as np
 import xarray as xr
 from dask.distributed import wait

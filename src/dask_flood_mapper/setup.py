@@ -18,7 +18,7 @@ CONFIG_PATH = Path(__file__).resolve().parent / "config.yaml"
 config = load_config(CONFIG_PATH)
 
 def initialize_catalog():
-    eodc_catalog = pystac_client.Client.open("https://stac.eodc.eu/api/v1")
+    eodc_catalog = pystac_client.Client.open(config["api"])
     return eodc_catalog
 
 def initialize_search(eodc_catalog, bbox, time_range):

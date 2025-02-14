@@ -1,10 +1,10 @@
-from flood.calculation import calc_water_likelihood, harmonic_expected_backscatter, bayesian_flood_decision, calculate_flood_dc, remove_speckles
-from flood.setup import initialize_catalog, initialize_search, search_parameters
-from flood.processing import post_processing, prepare_dc, prepare_sig0dc, process_sig0_dc, process_datacube
+from dask_flood_mapper.calculation import calc_water_likelihood, harmonic_expected_backscatter, bayesian_flood_decision, calculate_flood_dc, remove_speckles
+from dask_flood_mapper.setup import initialize_catalog, initialize_search, search_parameters
+from dask_flood_mapper.processing import post_processing, prepare_dc, prepare_sig0dc, process_sig0_dc, process_datacube
 from odc import stac as odc_stac
 import os
 import pystac_client
-from flood.setup import config
+from dask_flood_mapper.setup import config
 
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
@@ -15,7 +15,7 @@ bands_hpar= ("C1", "C2", "C3", "M0", "S1", "S2", "S3", "STD") # not possible to 
 bands_plia = "MPLIA"
 
 
-def flood_decision(bbox, datetime):
+def decision(bbox, datetime):
     eodc_catalog = initialize_catalog()
     search = initialize_search(eodc_catalog, bbox, datetime)
 
