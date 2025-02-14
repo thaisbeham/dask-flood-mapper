@@ -78,22 +78,7 @@ def process_datacube(datacube, items_dc,orbit_sig0, bands ):
     wait(datacube)  
     return datacube
 
-def process_wcover_data(wcover_dc):
-    """Process a preloaded WorldCover dataset by removing the time dimension and renaming variables."""
-    
-    wcover_dc = (wcover_dc
-                 .squeeze("time")
-                 .drop_vars("time")
-                 .rename_vars({"ESA_WORLDCOVER_10M_MAP": "wcover"}))
-    
-
-    wcover_dc = wcover_dc.persist()
-    wait(wcover_dc)  
-
-    return wcover_dc
-
 # post-processing
-
 def post_process_eodc_cube(dc: xr.Dataset, items, bands):
     if not isinstance(bands, tuple):
         bands = tuple([bands])
