@@ -3,9 +3,6 @@ import xarray as xr
 import numpy as np
 from unittest.mock import MagicMock, patch
 import pandas as pd
-import zipfile
-from pathlib import Path
-import shutil
 import dask.array as da
 from dask.distributed import Client, wait
 client = Client(processes=False, threads_per_worker=2,
@@ -39,7 +36,7 @@ def mock_item():
     item.assets = {
         "band1": MagicMock(extra_fields={'raster:bands': [{'scale': 2, 'nodata': -9999}]})
     }
-    return [item]  # Return as list
+    return [item]  
 
 @pytest.fixture
 def dataset():
@@ -85,15 +82,15 @@ def mock_data():
     times = np.array(["2022-10-11", "2022-10-11", "2022-10-12"], dtype="datetime64")
     data_values = np.array([
         [[1, 2], [3, 4]],
-        [[5, 6], [7, 8]],  # Duplicate time
+        [[5, 6], [7, 8]],  
         [[9, 10], [11, 12]]
     ])
     orbits = np.array(["ASCENDING10", "DESCENDING20", "ASCENDING30"])
-    # Convert data_values to a Dask array with explicit chunks
-    dask_data = da.from_array(data_values, chunks=(1, 2, 2))  # Ensure chunking
+   
+    dask_data = da.from_array(data_values, chunks=(1, 2, 2))  
 
     ds = xr.Dataset(
-        {"VV": (["time", "x", "y"], dask_data)},  # Use Dask array here
+        {"VV": (["time", "x", "y"], dask_data)},  
         coords={"time": times, "x": [0, 1], "y": [0, 1]}
     )
 
@@ -126,7 +123,6 @@ class TestPostProcessEodcCube:
         print(f"Dataset:  {dataset.band1}")
         assert result.equals(expected)
 
-    # Test post_process_eodc_cube
     def test_post_process_eodc_cube(self, dataset, mock_item):
         expected = dataset.band1 /2
         result = post_process_eodc_cube(dataset, mock_item, "band1")
@@ -136,11 +132,9 @@ class TestPostProcessEodcCube:
 
 class TestCalculations:
     def test_calc_water_likelihood(self, dataset):
-        # Create mock MPLIA data
         mplia_values = np.array([[10, 20], [30, 40]])
         dataset["MPLIA"] = (["x", "y"], mplia_values)
         
-        # Expected result calculation
         expected_values = mplia_values * -0.394181 + -4.142015
         
         result = calc_water_likelihood(dataset)
@@ -152,7 +146,6 @@ class TestCalculations:
         
         result = harmonic_expected_backscatter(mock_hpar_dataset)
 
-        # Compute the expected values based on the formula manually
         w = np.pi * 2 / 365
         t = mock_hpar_dataset.time.dt.dayofyear
         wt = w * t
@@ -165,16 +158,14 @@ class TestCalculations:
         C2 = mock_hpar_dataset.C2
         C3 = mock_hpar_dataset.C3
         
-        # Compute expected result
+
         hm_c1 = (M0 + S1 * np.sin(wt)) + (C1 * np.cos(wt))
         hm_c2 = ((hm_c1 + S2 * np.sin(2 * wt)) + C2 * np.cos(2 * wt))
         expected = ((hm_c2 + S3 * np.sin(3 * wt)) + C3 * np.cos(3 * wt))
 
-        # Use assert to compare results
         assert (result.values == expected.values).all()
 
     def test_bayesian_flood_decision(self, mock_hpar_dataset):
-        # create mock data
         mock_hpar_dataset["sig0"] = (["x", "y"], [[1, 2], [3, 4]])
         mock_hpar_dataset["STD"] = (["x", "y"], [[0.5, 0.5], [0.5, 0.5]])
         mock_hpar_dataset["wbsc"] = (["x", "y"], [[0.1, 0.2], [0.3, 0.4]])
@@ -183,7 +174,6 @@ class TestCalculations:
         
         nf_post_prob, f_post_prob, decision = bayesian_flood_decision(mock_hpar_dataset)
 
-        # Manually calculate expected values using the formula
         nf_std = 2.754041
         sig0 = mock_hpar_dataset.sig0
         std = mock_hpar_dataset.STD
@@ -237,20 +227,18 @@ def test_process_sig0_dc(mock_extract_orbit_names, mock_post_process, mock_data,
     mock_post_process.return_value = mock_data
     mock_extract_orbit_names.return_value = np.array(["ASCENDING10", "DESCENDING20", "ASCENDING30"])
     
-    # Call the function under test
+
     sig0_dc, orbit_sig0 = process_sig0_dc(mock_data, mock_items_orbits, "VV")
 
-    # Assertions
+
     assert isinstance(sig0_dc, xr.Dataset), "Returned object should be an xarray Dataset"
     assert "sig0" in sig0_dc, "Variable should be renamed to 'sig0'"
     assert "orbit" in sig0_dc.coords, "Orbit coordinate should be present"
     assert len(sig0_dc.time) == 2, "Duplicate times should be averaged"
 
-    # Check orbit values
     expected_orbits = np.array(["ASCENDING10", "ASCENDING30"])
     np.testing.assert_array_equal(orbit_sig0, expected_orbits)
 
-    # Ensure persist() was called
     assert sig0_dc.chunks, "Dataset should be persisted (chunked with Dask)"
     assert any(isinstance(v.data, da.Array) for v in sig0_dc.data_vars.values()), "Dataset should be persisted (not computed)"
 
@@ -276,7 +264,7 @@ def test_process_datacube(mock_extract_orbit_names, mock_post_process, mock_data
     assert any(hasattr(v.data, "chunks") and v.data.chunks is not None for v in result.data_vars.values()), "Dataset should be chunked"
     assert orbit_sig0 in result.orbit.values, f"Dataset should contain orbit '{orbit_sig0}' only"
 
-    # Ensure correct post-processing
+
     mock_post_process.assert_called_once_with(mock_data, mock_items_orbits, bands)
     mock_extract_orbit_names.assert_called_once_with(mock_items_orbits)
 
@@ -286,17 +274,14 @@ def test_calculate_flood_dc(mock_data_cubes):
     sig0_dc, plia_dc, hpar_dc = mock_data_cubes
     result = calculate_flood_dc(sig0_dc, plia_dc, hpar_dc)
 
-    # Ensure merging happened correctly
+
     assert all(var in result.data_vars for var in ["sig0", "plia", "hpar"]), "All variables should be present after merging"
 
-    # Ensure 'orbit' was renamed to 'time'
     assert "time" in result.dims, "Orbit dimension should be renamed to 'time'"
     assert "orbit" not in result.dims, "Orbit dimension should be removed"
 
-    # Ensure NaNs in 'sig0' dimension are dropped
     assert result.dropna(dim="time", how="all", subset=["sig0"]).sizes["time"] == result.sizes["time"], "All-NaN values in 'sig0' should be removed"
 
-    # Ensure dataset is persisted (Dask chunks)
     assert result.chunks, "Dataset should be persisted (chunked with Dask)"
     assert any(isinstance(v.data, da.Array) for v in result.data_vars.values()), "Dataset should be persisted (not computed)"
 
@@ -306,11 +291,9 @@ def test_remove_speckles(mock_data_cubes):
     sig0_dc, _, _ = mock_data_cubes  # Use only sig0_dc for filtering
     result = remove_speckles(sig0_dc, window_size=3)
 
-    # Ensure rolling median filter was applied
+
     assert result.sizes["latitude"] == sig0_dc.sizes["latitude"], "Latitude size should remain the same"
     assert result.sizes["longitude"] == sig0_dc.sizes["longitude"], "Longitude size should remain the same"
-
-    # Ensure dataset is persisted (Dask chunks)
     assert result.chunks, "Dataset should be persisted (chunked with Dask)"
     assert any(isinstance(v.data, da.Array) for v in result.data_vars.values()), "Dataset should be persisted (not computed)"
 
