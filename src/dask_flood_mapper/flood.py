@@ -21,6 +21,7 @@ from odc import stac as odc_stac
 import os
 import pystac_client
 from dask_flood_mapper.setup import config
+import rioxarray
 
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
@@ -88,4 +89,4 @@ def decision(bbox, datetime):
     flood_output = post_processing(flood_dc)
     flood_output = remove_speckles(flood_output)
 
-    return reproject_equi7grid(flood_output, crs)
+    return reproject_equi7grid(flood_output, bbox, crs)

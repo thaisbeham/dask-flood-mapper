@@ -6,6 +6,8 @@ name = "pip_conf_index_global"
 [packages]
 xarray = "*"
 dask-flood-mapper = {file = ".", editable = true}
+dask = {extras = ["complete"], version = "*"}
+hvplot = "*"
 
 [dev-packages]
 pytest = "*"

@@ -119,5 +119,5 @@ def post_processing(dc):
     return (dc * (dc.f_post_prob > 0.8)).decision
 
 
-def reproject_equi7grid(dc, target_epsg):
-    return dc.rio.reproject("EPSG:4326")
+def reproject_equi7grid(dc, bbox, target_epsg="EPSG:4326"):
+    return dc.rio.reproject(target_epsg).rio.clip_box(*bbox)

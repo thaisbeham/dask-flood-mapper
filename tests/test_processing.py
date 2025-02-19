@@ -1,7 +1,7 @@
 from dask_flood_mapper.processing import reproject_equi7grid
 import numpy as np
 import xarray as xr
-import rioxarray
+import rioxarray  # noqa
 from xarray.testing import assert_equal
 
 
