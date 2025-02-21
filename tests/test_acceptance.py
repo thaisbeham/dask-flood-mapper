@@ -6,8 +6,8 @@
 
 # class TestFloodMapNorthernGermany2022:
 #     time_range = "2022-10-11/2022-10-25"
-#     minlon, maxlon = 12.3, 13.1
-#     minlat, maxlat = 54.3, 54.6
+#     minlon, maxlon = 12.999, 13
+#     minlat, maxlat = 53.999, 54
 #     bounding_box = [minlon, minlat, maxlon, maxlat]
 #     flood_map = flood.decision(bbox=bounding_box, datetime=time_range)
 

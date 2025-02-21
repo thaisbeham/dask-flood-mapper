@@ -60,6 +60,22 @@ def harmonic_expected_backscatter(dc):
 
 
 def bayesian_flood_decision(dc):
+    f_prob, nf_prob = calc_prior_probability(dc)
+    decision = xr.where(
+        np.isnan(f_prob) | np.isnan(nf_prob),
+        np.nan,
+        np.greater(f_prob, nf_prob),
+    )
+    return decision
+
+
+def bayesian_flood_probability(dc):
+    f_prob, nf_prob = calc_prior_probability(dc)
+    evidence = (nf_prob * 0.5) + (f_prob * 0.5)
+    return (f_prob * 0.5) / evidence
+
+
+def calc_prior_probability(dc):
     nf_std = 2.754041
     sig0 = dc.sig0
     std = dc.STD
@@ -73,12 +89,4 @@ def bayesian_flood_decision(dc):
         -0.5 * (((sig0 - hbsc) / nf_std) ** 2)
     )
 
-    evidence = (nf_prob * 0.5) + (f_prob * 0.5)
-    nf_post_prob = (nf_prob * 0.5) / evidence
-    f_post_prob = (f_prob * 0.5) / evidence
-    decision = xr.where(
-        np.isnan(f_post_prob) | np.isnan(nf_post_prob),
-        np.nan,
-        np.greater(f_post_prob, nf_post_prob),
-    )
-    return nf_post_prob, f_post_prob, decision
+    return f_prob, nf_prob
