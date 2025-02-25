@@ -29,7 +29,7 @@ def make_datacube(values, y, x):
 
 def test_that_equi7_can_be_reprojected():
     input_cube = make_full_datacube((3, 3), 1)
-    output_cube = reproject_equi7grid(input_cube, "EPSG:4326")
+    output_cube = reproject_equi7grid(input_cube, [-30, 16, -29, 17])
     assert_datacube_eq(
         output_cube,
         make_datacube(

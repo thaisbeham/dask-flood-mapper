@@ -5,10 +5,7 @@ from dask_flood_mapper.setup import config
 import numpy as np
 import xarray as xr
 from dask.distributed import wait
-from shapely.geometry import box
-from shapely import affinity
-from pyproj import Transformer
-from shapely.ops import transform
+import rioxarray  # noqa
 
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
