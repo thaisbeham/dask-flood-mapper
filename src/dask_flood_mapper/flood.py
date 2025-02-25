@@ -27,7 +27,6 @@ import rioxarray
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
-resolution = config["base"]["resolution"]
 groupby = config["base"]["groupby"]
 bands_sig0 = "VV"
 bands_hpar = (
@@ -83,4 +82,5 @@ def preprocess(bbox, datetime):
     plia_dc = prepare_dc(items_plia, bbox, bands=bands_plia)
     plia_dc = process_datacube(plia_dc, items_plia, orbit_sig0, bands="MPLIA")
     print("projected local incidence angle processed")
+
     return sig0_dc, hpar_dc, plia_dc

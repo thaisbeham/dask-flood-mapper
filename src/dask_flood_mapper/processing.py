@@ -10,7 +10,6 @@ import rioxarray  # noqa
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
-resolution = config["base"]["resolution"]
 groupby = config["base"]["groupby"]
 bands_hpar = (
     "C1",
