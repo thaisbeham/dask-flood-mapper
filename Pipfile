@@ -5,10 +5,11 @@ name = "pip_conf_index_global"
 
 [packages]
 hvplot = "*"
-sphinx = "*"
 dask-flood-mapper = {file = ".", editable = true}
 dask = {extras = ["distributed"], version = "*"}
 rioxarray = "*"
+nbsphinx = "*"
+sphinx = "==8.1"
 
 [dev-packages]
 pytest = "*"
