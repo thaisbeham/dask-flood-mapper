@@ -46,29 +46,30 @@ def decision(bbox, datetime):
     """
     Bayesian Flood Decision
 
-    Classify Sentinel-1 radar images by simple Bayes inference into flood (1) 
-    and non-flood (0). Besides radar images, this algorithm relies on two other 
-    datasets stored at the Earth Observation Data Centre For Water Resources 
-    Monitoring (EODC); harmonic parameters based on a fit on per land pixel 
+    Classify Sentinel-1 radar images by simple Bayes inference into flood (1)
+    and non-flood (0). Besides radar images, this algorithm relies on two other
+    datasets stored at the Earth Observation Data Centre For Water Resources
+    Monitoring (EODC); harmonic parameters based on a fit on per land pixel
     timeseries and the projected incidence angle of the measurement. The latter
-    two datasets are required to calculate the land and water likelihood 
+    two datasets are required to calculate the land and water likelihood
     distributions, respectively.
 
     Parameters
     ----------
     bbox : tuple of float or tuple of int
-        Geographic bounding box, consisting of minimum longitude, minimum 
+        Geographic bounding box, consisting of minimum longitude, minimum
         latitude, maximum longitude, maximum latitude
     datetime: string
-        Datetime string
-          * A closed range: "2022-10-01/2022-10-07"
-          * Whole month, year or day: "2022-01"
-          * Open range with current date: "2022-01-01/.."
-          * Specific time instance: "2022-01-01T05:34:46"
+        Datetime string:
+        
+          - A closed range: "2022-10-01/2022-10-07"
+          - Whole month, year or day: "2022-01"
+          - Open range with current date: "2022-01-01/.."
+          - Specific time instance: "2022-01-01T05:34:46"
 
     Returns
     -------
-        xarray.Dataset of 0 (non-flood) and 1 (flood)
+        flood decision : xarray.DataArray of 0 (non-flood) and 1 (flood)
 
     See also
     --------
@@ -91,34 +92,32 @@ def decision(bbox, datetime):
             [nan, nan,  0., ...,  0.,  0.,  0.],
             [nan, nan,  0., ...,  0., nan, nan],
             [nan, nan,  0., ..., nan, nan, nan]],
-
-        [[nan, nan, nan, ..., nan, nan, nan],
+        ...
+           [[nan, nan, nan, ..., nan, nan, nan],
             [nan, nan, nan, ..., nan, nan, nan],
             [nan, nan, nan, ..., nan, nan, nan],
             ...,
             [nan, nan,  0., ...,  0.,  0.,  0.],
             [nan, nan,  0., ...,  0., nan, nan],
             [nan, nan,  0., ..., nan, nan, nan]],
-
-        [[nan, nan, nan, ..., nan, nan, nan],
+        ...
+           [[nan, nan, nan, ..., nan, nan, nan],
             [ 0.,  0.,  0., ..., nan, nan, nan],
             [ 0.,  0.,  0., ..., nan, nan, nan],
-            ...,
-    ...
             ...,
             [nan, nan,  0., ...,  0.,  0.,  0.],
             [nan, nan,  0., ...,  0., nan, nan],
             [nan, nan,  0., ..., nan, nan, nan]],
-
-        [[nan, nan, nan, ..., nan, nan, nan],
+        ...
+           [[nan, nan, nan, ..., nan, nan, nan],
             [ 0.,  0.,  0., ..., nan, nan, nan],
             [ 0.,  0.,  0., ..., nan, nan, nan],
             ...,
             [nan, nan, nan, ..., nan, nan, nan],
             [nan, nan, nan, ..., nan, nan, nan],
             [nan, nan, nan, ..., nan, nan, nan]],
-
-        [[nan, nan, nan, ...,  0., nan, nan],
+        ...
+           [[nan, nan, nan, ...,  0., nan, nan],
             [ 0.,  0.,  0., ...,  0., nan, nan],
             [ 0.,  0.,  0., ...,  0., nan, nan],
             ...,
@@ -132,7 +131,7 @@ def decision(bbox, datetime):
         spatial_ref  int64 8B 0
     Attributes:
         _FillValue:  nan
-    >>> 
+    >>>
     """
 
     sig0_dc, hpar_dc, plia_dc = preprocess(bbox, datetime)
