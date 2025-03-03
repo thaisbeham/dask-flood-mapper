@@ -8,11 +8,12 @@ hvplot = "*"
 dask-flood-mapper = {file = ".", editable = true}
 dask = {extras = ["distributed"], version = "*"}
 rioxarray = "*"
-nbsphinx = "*"
-sphinx = "==8.1"
+numpy = "==2.1"
+jupyter-book = "*"
 
 [dev-packages]
 pytest = "*"
+jupyter-book = "*"
 
 [requires]
 python_version = "3.12"

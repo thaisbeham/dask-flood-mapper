@@ -1,4 +1,4 @@
-## Dask based Flood Mapping
+# Dask based Flood Mapping
 
 ![CI](https://github.com/TUW-GEO/dask-flood-mapper/actions/workflows/pytest.yml/badge.svg)
 

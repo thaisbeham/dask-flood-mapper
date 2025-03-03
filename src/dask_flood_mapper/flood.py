@@ -43,6 +43,20 @@ bands_plia = "MPLIA"
 
 
 def decision(bbox, datetime):
+    """
+    Bayesian Decision
+
+    Parameters
+    ----------
+    bbox: tuple
+        geographic bounding box
+    datetime: string
+        datetime string
+    Returns
+    -------
+    xarray.Dataset
+    """
+
     sig0_dc, hpar_dc, plia_dc = preprocess(bbox, datetime)
     flood_dc = calculate_flood_dc(sig0_dc, plia_dc, hpar_dc)
     flood_dc["wbsc"] = calc_water_likelihood(flood_dc)  # Water

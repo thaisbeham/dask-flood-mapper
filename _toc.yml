@@ -1,0 +1,10 @@
+format: jb-book
+root: README
+parts:
+- caption: Usage
+  chapters:
+  - file: notebooks/01_local_dask
+  - file: notebooks/02_flood_map_decomposed
+- caption: API Reference
+  chapters:
+  - file: docs/api
