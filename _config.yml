@@ -1,6 +1,8 @@
 title: Dask based Flood Mapping
 author: Martin Schobben & Thais Beham
 logo: docs/images/tuw-geo-logo.svg
+copyright: "2025"
+
 execute:
   execute_notebooks: cache
 
