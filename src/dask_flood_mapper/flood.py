@@ -44,17 +44,95 @@ bands_plia = "MPLIA"
 
 def decision(bbox, datetime):
     """
-    Bayesian Decision
+    Bayesian Flood Decision
+
+    Classify Sentinel-1 radar images by simple Bayes inference into flood (1) 
+    and non-flood (0). Besides radar images, this algorithm relies on two other 
+    datasets stored at the Earth Observation Data Centre For Water Resources 
+    Monitoring (EODC); harmonic parameters based on a fit on per land pixel 
+    timeseries and the projected incidence angle of the measurement. The latter
+    two datasets are required to calculate the land and water likelihood 
+    distributions, respectively.
 
     Parameters
     ----------
-    bbox: tuple
-        geographic bounding box
+    bbox : tuple of float or tuple of int
+        Geographic bounding box, consisting of minimum longitude, minimum 
+        latitude, maximum longitude, maximum latitude
     datetime: string
-        datetime string
+        Datetime string
+          * A closed range: "2022-10-01/2022-10-07"
+          * Whole month, year or day: "2022-01"
+          * Open range with current date: "2022-01-01/.."
+          * Specific time instance: "2022-01-01T05:34:46"
+
     Returns
     -------
-    xarray.Dataset
+        xarray.Dataset of 0 (non-flood) and 1 (flood)
+
+    See also
+    --------
+    probability
+
+    Examples
+    --------
+    >>> from dask_flood_mapper import flood
+    >>> time_range = "2022-10-11/2022-10-25"
+    >>> bbox = [12.3, 54.3, 13.1, 54.6]
+    >>> flood.decision(bbox=bbox, datetime=time_range).compute()
+    sigma naught datacube processed
+    harmonic parameter datacube processed
+    projected local incidence angle processed
+    <xarray.DataArray 'decision' (time: 8, y: 1048, x: 2793)> Size: 187MB
+    array([[[nan, nan, nan, ...,  0., nan, nan],
+            [ 0.,  0.,  0., ...,  0., nan, nan],
+            [ 0.,  0.,  0., ...,  0., nan, nan],
+            ...,
+            [nan, nan,  0., ...,  0.,  0.,  0.],
+            [nan, nan,  0., ...,  0., nan, nan],
+            [nan, nan,  0., ..., nan, nan, nan]],
+
+        [[nan, nan, nan, ..., nan, nan, nan],
+            [nan, nan, nan, ..., nan, nan, nan],
+            [nan, nan, nan, ..., nan, nan, nan],
+            ...,
+            [nan, nan,  0., ...,  0.,  0.,  0.],
+            [nan, nan,  0., ...,  0., nan, nan],
+            [nan, nan,  0., ..., nan, nan, nan]],
+
+        [[nan, nan, nan, ..., nan, nan, nan],
+            [ 0.,  0.,  0., ..., nan, nan, nan],
+            [ 0.,  0.,  0., ..., nan, nan, nan],
+            ...,
+    ...
+            ...,
+            [nan, nan,  0., ...,  0.,  0.,  0.],
+            [nan, nan,  0., ...,  0., nan, nan],
+            [nan, nan,  0., ..., nan, nan, nan]],
+
+        [[nan, nan, nan, ..., nan, nan, nan],
+            [ 0.,  0.,  0., ..., nan, nan, nan],
+            [ 0.,  0.,  0., ..., nan, nan, nan],
+            ...,
+            [nan, nan, nan, ..., nan, nan, nan],
+            [nan, nan, nan, ..., nan, nan, nan],
+            [nan, nan, nan, ..., nan, nan, nan]],
+
+        [[nan, nan, nan, ...,  0., nan, nan],
+            [ 0.,  0.,  0., ...,  0., nan, nan],
+            [ 0.,  0.,  0., ...,  0., nan, nan],
+            ...,
+            [nan, nan,  0., ...,  0.,  0.,  0.],
+            [nan, nan,  0., ...,  0., nan, nan],
+            [nan, nan,  0., ..., nan, nan, nan]]])
+    Coordinates:
+    * x            (x) float64 22kB 12.3 12.3 12.3 12.3 ... 13.1 13.1 13.1 13.1
+    * y            (y) float64 8kB 54.6 54.6 54.6 54.6 ... 54.3 54.3 54.3 54.3
+    * time         (time) datetime64[ns] 64B 2022-10-11T05:25:01 ... 2022-10-23...
+        spatial_ref  int64 8B 0
+    Attributes:
+        _FillValue:  nan
+    >>> 
     """
 
     sig0_dc, hpar_dc, plia_dc = preprocess(bbox, datetime)
