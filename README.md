@@ -15,6 +15,22 @@ pip install git+https://github.com/TUW-GEO/dask-flood-mapper
 
 ## Usage
 
-### Distributed processing
+### Local Processing
+
+### Distributed Processing
 
 It is also possible to remote process the data at EODC with the added benefit that we can then process close to the data source without requiring rate-limiting file transfers over the internet.
+
+## Development
+
+## Contributing
+
+Interested in contributing to this project. For convenience one can use `pipenv` and the `Pipfile.lock` to deterministically install all packages used during development. 
+
+```
+pipenv install
+```
+
+Checkout the documentation for more help with installing pipenv and reconstructing the development environment.
+
+## Credits
