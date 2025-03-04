@@ -78,6 +78,8 @@ def decision(bbox, datetime):
     Examples
     --------
     >>> from dask_flood_mapper import flood
+    >>> 
+    >>> 
     >>> time_range = "2022-10-11/2022-10-25"
     >>> bbox = [12.3, 54.3, 13.1, 54.6]
     >>> flood.decision(bbox=bbox, datetime=time_range).compute()
