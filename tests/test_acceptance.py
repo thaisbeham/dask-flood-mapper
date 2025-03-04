@@ -1,24 +1,50 @@
-# import xarray as xr
-# from dask_flood_mapper import flood
-# import numpy as np
-# import pytest
+import xarray as xr
+from dask_flood_mapper import flood
+import numpy as np
+import pytest
+import rioxarray  # noqa
+from datetime import datetime
+
+def assert_datacube_eq(actual, expected):
+    xr.testing.assert_allclose(actual, expected, rtol=0.01)
 
 
-# class TestFloodMapNorthernGermany2022:
-#     time_range = "2022-10-11/2022-10-25"
-#     minlon, maxlon = 12.999, 13
-#     minlat, maxlat = 53.999, 54
-#     bounding_box = [minlon, minlat, maxlon, maxlat]
-#     flood_map = flood.decision(bbox=bounding_box, datetime=time_range)
+def make_datacube(values, y, x, time):
+    values_arr = np.array(values).astype(np.float32)
+    shape = values_arr.shape
+    return xr.DataArray(
+        values_arr,
+        dims=("time", "y", "x"),
+        coords={"time": time,"y": y, "x": x}
+    ).rio.write_crs("EPSG:4326")
 
-#     def test_that_flood_map_is_created(self):
-#         xr.testing.assert_equal(self.flood_map, xr.DataArray([0, 1]))
 
-#     def test_that_flood_map_is_xarray(self):
-#         assert isinstance(self.flood_map, xr.DataArray)
+class TestFloodMapNorthernGermany2022:
+    time_range = "2022-10-11T05:25:26"
+    minlon, maxlon = 12.999, 13
+    minlat, maxlat = 53.999, 54
+    bounding_box = [minlon, minlat, maxlon, maxlat]
+    flood_map = flood.decision(bbox=bounding_box, datetime=time_range)
 
-#     def test_that_flood_map_values_are_binary(self):
-#         np.testing.assert_equal(np.unique(self.flood_map.values), np.array([0, 1]))
+    def test_that_flood_map_is_xarray(self):
+        assert isinstance(self.flood_map, xr.DataArray)
+
+    def test_that_flood_map_is_created(self):
+        assert_datacube_eq(
+            self.flood_map,
+            make_datacube(
+                [[
+                    [np.nan, np.nan, np.nan, np.nan, np.nan],
+                    [np.nan, np.nan, np.nan, np.nan, np.nan],
+                    [np.nan, np.nan, 0.0,    np.nan, np.nan],
+                    [np.nan, np.nan, 0.0,    0.0,    np.nan],
+                    [np.nan, np.nan, np.nan, np.nan, np.nan],
+                ]],
+            x=[13.0, 13.0, 13.0, 13.0, 13.0],
+            y=[54.0, 54.0, 54.0, 54.0, 54.0],
+            time=[datetime.strptime(self.time_range,'%Y-%m-%dT%H:%M:%S')],
+          )
+        )
 
 
 # class TestFloodMapIsOutOfDateRange:
