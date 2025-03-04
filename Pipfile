@@ -9,6 +9,8 @@ sphinx = "*"
 dask-flood-mapper = {file = ".", editable = true}
 dask = {extras = ["distributed"], version = "*"}
 rioxarray = "*"
+ruff = "*"
+pre-commit= "*"
 
 [dev-packages]
 pytest = "*"
