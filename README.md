@@ -9,3 +9,22 @@ git clone git@git.geo.tuwien.ac.at:mschobbe/dask-flood-mapper.git
 cd dask-flood-mapper
 pip install .
 ```
+### Linter
+
+Before each commiting, Ruff is actioned. To run Ruff without commiting, run:
+
+```bash
+pre-commit run --all-files
+```
+
+or
+
+```bash
+ruff check --fix --output-format concise
+```
+
+To fix the format, Ruff also offers this option with the command:
+
+```bash
+ruff format
+```
