@@ -18,11 +18,7 @@ from dask_flood_mapper.processing import (
     process_datacube,
     reproject_equi7grid,
 )
-from odc import stac as odc_stac
-import os
-import pystac_client
 from dask_flood_mapper.setup import config
-import rioxarray
 
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
@@ -61,7 +57,7 @@ def decision(bbox, datetime):
         latitude, maximum longitude, maximum latitude
     datetime: string
         Datetime string:
-        
+
           - A closed range: "2022-10-01/2022-10-07"
           - Whole month, year or day: "2022-01"
           - Open range with current date: "2022-01-01/.."
@@ -78,8 +74,8 @@ def decision(bbox, datetime):
     Examples
     --------
     >>> from dask_flood_mapper import flood
-    >>> 
-    >>> 
+    >>>
+    >>>
     >>> time_range = "2022-10-11/2022-10-25"
     >>> bbox = [12.3, 54.3, 13.1, 54.6]
     >>> flood.decision(bbox=bbox, datetime=time_range).compute()

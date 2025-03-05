@@ -2,7 +2,6 @@ from dask_flood_mapper.processing import reproject_equi7grid
 import numpy as np
 import xarray as xr
 import rioxarray  # noqa
-from xarray.testing import assert_equal
 
 
 def assert_datacube_eq(actual, expected):
@@ -21,7 +20,6 @@ def make_full_datacube(shape, value):
 
 def make_datacube(values, y, x):
     values_arr = np.array(values).astype(np.float32)
-    shape = values_arr.shape
     return xr.DataArray(
         values_arr, dims=("y", "x"), coords={"y": y, "x": x}
     ).rio.write_crs("EPSG:27704")
