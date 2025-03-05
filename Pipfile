@@ -1,19 +1,21 @@
 [[source]]
-url = "https://pypi.geo.tuwien.ac.at/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pip_conf_index_global"
 
 [packages]
-hvplot = "*"
-sphinx = "*"
 dask-flood-mapper = {file = ".", editable = true}
+odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
+numpy = "==2.1"
 rioxarray = "*"
 ruff = "*"
 pre-commit= "*"
 
 [dev-packages]
 pytest = "*"
+jupyter-book = "*"
+hvplot = "*"
 
 [requires]
 python_version = "3.12"
