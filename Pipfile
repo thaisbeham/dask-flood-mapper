@@ -8,6 +8,9 @@ dask-flood-mapper = {file = ".", editable = true}
 odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
 numpy = "==2.1"
+rioxarray = "*"
+ruff = "*"
+pre-commit= "*"
 
 [dev-packages]
 pytest = "*"
