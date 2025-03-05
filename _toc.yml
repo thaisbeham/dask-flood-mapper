@@ -4,7 +4,8 @@ parts:
 - caption: Usage
   chapters:
   - file: notebooks/01_local_dask
-  - file: notebooks/02_flood_map_decomposed
+  - file: notebooks/02_remote_dask
+  - file: notebooks/03_flood_map
 - caption: API Reference
   chapters:
   - file: docs/api

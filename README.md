@@ -31,6 +31,6 @@ Interested in contributing to this project. For convenience one can use `pipenv`
 pipenv install
 ```
 
-Checkout the documentation for more help with installing pipenv and reconstructing the development environment.
+Checkout the [documentation](https://pipenv.pypa.io/en/latest/) for more help with installing pipenv and reconstructing the development environment.
 
 ## Credits
