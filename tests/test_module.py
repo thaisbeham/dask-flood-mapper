@@ -213,7 +213,7 @@ class TestCalculations:
         mock_hpar_dataset["wbsc"] = (["x", "y"], [[0.1, 0.2], [0.3, 0.4]])
         mock_hpar_dataset["hbsc"] = (["x", "y"], [[0.5, 0.6], [0.7, 0.8]])
 
-        nf_post_prob, f_post_prob, decision = bayesian_flood_decision(mock_hpar_dataset)
+        decision = bayesian_flood_decision(mock_hpar_dataset)
 
         nf_std = 2.754041
         sig0 = mock_hpar_dataset.sig0
@@ -233,8 +233,6 @@ class TestCalculations:
         f_post_prob_expected = (f_prob * 0.5) / evidence
         decision_expected = np.greater(f_post_prob_expected, nf_post_prob_expected)
 
-        assert (nf_post_prob.values == nf_post_prob_expected.values).all()
-        assert (f_post_prob.values == f_post_prob_expected.values).all()
         assert (decision.values == decision_expected).all()
 
 
@@ -370,12 +368,8 @@ def test_remove_speckles(mock_data_cubes):
     sig0_dc, _, _ = mock_data_cubes  # Use only sig0_dc for filtering
     result = remove_speckles(sig0_dc, window_size=3)
 
-    assert result.sizes["y"] == sig0_dc.sizes["y"], (
-        "y size should remain the same"
-    )
-    assert result.sizes["x"] == sig0_dc.sizes["x"], (
-        "x size should remain the same"
-    )
+    assert result.sizes["y"] == sig0_dc.sizes["y"], "y size should remain the same"
+    assert result.sizes["x"] == sig0_dc.sizes["x"], "x size should remain the same"
     assert result.chunks, "Dataset should be persisted (chunked with Dask)"
     assert any(isinstance(v.data, da.Array) for v in result.data_vars.values()), (
         "Dataset should be persisted (not computed)"
