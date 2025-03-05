@@ -1,9 +1,9 @@
 import xarray as xr
 from dask_flood_mapper import flood
 import numpy as np
-import pytest
 import rioxarray  # noqa
 from datetime import datetime
+
 
 def assert_datacube_eq(actual, expected):
     xr.testing.assert_allclose(actual, expected, rtol=0.01)
@@ -11,11 +11,8 @@ def assert_datacube_eq(actual, expected):
 
 def make_datacube(values, y, x, time):
     values_arr = np.array(values).astype(np.float32)
-    shape = values_arr.shape
     return xr.DataArray(
-        values_arr,
-        dims=("time", "y", "x"),
-        coords={"time": time,"y": y, "x": x}
+        values_arr, dims=("time", "y", "x"), coords={"time": time, "y": y, "x": x}
     ).rio.write_crs("EPSG:4326")
 
 
@@ -33,17 +30,19 @@ class TestFloodMapNorthernGermany2022:
         assert_datacube_eq(
             self.flood_map,
             make_datacube(
-                [[
-                    [np.nan, np.nan, np.nan, np.nan, np.nan],
-                    [np.nan, np.nan, np.nan, np.nan, np.nan],
-                    [np.nan, np.nan, 0.0,    np.nan, np.nan],
-                    [np.nan, np.nan, 0.0,    0.0,    np.nan],
-                    [np.nan, np.nan, np.nan, np.nan, np.nan],
-                ]],
-            x=[13.0, 13.0, 13.0, 13.0, 13.0],
-            y=[54.0, 54.0, 54.0, 54.0, 54.0],
-            time=[datetime.strptime(self.time_range,'%Y-%m-%dT%H:%M:%S')],
-          )
+                [
+                    [
+                        [np.nan, np.nan, np.nan, np.nan, np.nan],
+                        [np.nan, np.nan, np.nan, np.nan, np.nan],
+                        [np.nan, np.nan, 0.0, np.nan, np.nan],
+                        [np.nan, np.nan, 0.0, 0.0, np.nan],
+                        [np.nan, np.nan, np.nan, np.nan, np.nan],
+                    ]
+                ],
+                x=[13.0, 13.0, 13.0, 13.0, 13.0],
+                y=[54.0, 54.0, 54.0, 54.0, 54.0],
+                time=[datetime.strptime(self.time_range, "%Y-%m-%dT%H:%M:%S")],
+            ),
         )
 
 

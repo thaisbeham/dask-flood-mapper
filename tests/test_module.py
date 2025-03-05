@@ -128,7 +128,6 @@ def mock_data():
     """Creates a mock dataset similar to real sig0_dc, using Dask arrays."""
     times = np.array(["2022-10-11", "2022-10-11", "2022-10-12"], dtype="datetime64")
     data_values = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]])
-    orbits = np.array(["ASCENDING10", "DESCENDING20", "ASCENDING30"])
 
     dask_data = da.from_array(data_values, chunks=(1, 2, 2))
 

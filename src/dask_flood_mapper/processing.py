@@ -2,8 +2,6 @@ import xarray as xr
 import numpy as np
 from odc import stac as odc_stac
 from dask_flood_mapper.setup import config
-import numpy as np
-import xarray as xr
 from dask.distributed import wait
 import rioxarray  # noqa
 
@@ -33,6 +31,7 @@ def prepare_dc(items, bbox, bands):
         bbox=bbox,
         groupby=groupby,
     )
+
 
 # processing
 def process_sig0_dc(sig0_dc, items_sig0, bands):
