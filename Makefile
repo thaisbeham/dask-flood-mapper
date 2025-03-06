@@ -1,5 +1,7 @@
 SHELL = /bin/bash
 .PHONY: help clean install test version dist
+PIPENV_DIR := $(HOME)/.local/share/virtualenvs
+PIPENV_ACTIVATE := pipenv shell
 
 help:
 	@echo "make clean"
@@ -23,20 +25,27 @@ clean:
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
 
-venv/bin/activate:
-	python3 -m venv .venv
-	source .venv/bin/activate && pip install --upgrade pip setuptools
-	source .venv/bin/activate && pip install pygdal=="$(shell gdal-config --version).*"
+$(PIPENV_DIR):
+	pipenv upgrade && pipenv install --dev
 
-install: venv/bin/activate
-	source .venv/bin/activate && pip install -e .[test]
+environment: $(PIPENV_DIR)
+	@echo -e "pipenv environment is ready.
 
-test:
+install: $(PIPENV_DIR)
+	- $(PIPENV_ACTIVATE) 
+	pipenv install -e .[test]
+
+teardown: $(PIPENV_DIR)
+	pipenv --rm
+
+test: install
+	 - $(PIPENV_ACTIVATE)
 	pytest tests/ -rsx --verbose --color=yes --cov=dask_flood_mapper --cov-report term-missing
 
 version:
 	echo -e "__version__ = \"$(shell git describe --always --tags --abbrev=0)\"\n__commit__ = \"$(shell git rev-parse --short HEAD)\"" > src/dask_flood_mapper/_version.py
 
 dist: version
-	pip3 install build twine
+	- $(PIPENV_ACTIVATE)
+	pipenv install build twine
 	python3 -m build

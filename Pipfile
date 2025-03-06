@@ -4,19 +4,19 @@ verify_ssl = true
 name = "pip_conf_index_global"
 
 [packages]
-dask-flood-mapper = {file = ".", editable = true}
 odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
 numpy = "==2.1"
 rioxarray = "*"
-ruff = "*"
-pre-commit = "*"
-nbstripout = "*"
+dask-flood-mapper = {extras = ["test"], file = ".", editable = true}
 
 [dev-packages]
 pytest = "*"
-jupyter-book = "*"
 hvplot = "*"
+jupyter-book = "*"
+ruff = "*"
+pre-commit = "*"
+nbstripout = "*"
 
 [requires]
 python_version = "3.12"
