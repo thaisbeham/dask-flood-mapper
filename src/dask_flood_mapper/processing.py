@@ -1,15 +1,16 @@
 import xarray as xr
 import numpy as np
 from odc import stac as odc_stac
-from dask_flood_mapper.setup import config
-from dask.distributed import wait
 import rioxarray  # noqa
+from dask.distributed import wait
+from dask_flood_mapper.setup import config
+
 
 # import parameters from config.yaml file
 crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
 groupby = config["base"]["groupby"]
-bands_hpar = (
+BANDS_HPAR = (
     "C1",
     "C2",
     "C3",
@@ -19,7 +20,7 @@ bands_hpar = (
     "S3",
     "STD",
 )  # not possible to add to yaml file since is a ("a", "v") type
-bands_plia = "MPLIA"
+BANDS_PLIA = "MPLIA"
 
 
 # pre-processing

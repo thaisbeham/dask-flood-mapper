@@ -17,6 +17,7 @@ from dask_flood_mapper.processing import (
     process_sig0_dc,
     process_datacube,
     reproject_equi7grid,
+    BANDS_HPAR
 )
 from dask_flood_mapper.setup import config
 
@@ -24,18 +25,8 @@ from dask_flood_mapper.setup import config
 crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
 groupby = config["base"]["groupby"]
-bands_sig0 = "VV"
-bands_hpar = (
-    "C1",
-    "C2",
-    "C3",
-    "M0",
-    "S1",
-    "S2",
-    "S3",
-    "STD",
-)  # not possible to add to yaml file since is a ("a", "v") type
-bands_plia = "MPLIA"
+BANDS_SIG0= "VV"
+BANDS_PLIA = "MPLIA"
 
 
 def decision(bbox, datetime):
@@ -162,13 +153,13 @@ def preprocess(bbox, datetime):
 
     search_hpar = search_parameters(eodc_catalog, bbox, collections="SENTINEL1_HPAR")
     items_hpar = search_hpar.item_collection()
-    hpar_dc = prepare_dc(items_hpar, bbox, bands=bands_hpar)
-    hpar_dc = process_datacube(hpar_dc, items_hpar, orbit_sig0, bands_hpar)
+    hpar_dc = prepare_dc(items_hpar, bbox, bands=BANDS_HPAR)
+    hpar_dc = process_datacube(hpar_dc, items_hpar, orbit_sig0, BANDS_HPAR)
     print("harmonic parameter datacube processed")
 
     search_plia = search_parameters(eodc_catalog, bbox, collections="SENTINEL1_MPLIA")
     items_plia = search_plia.item_collection()
-    plia_dc = prepare_dc(items_plia, bbox, bands=bands_plia)
+    plia_dc = prepare_dc(items_plia, bbox, bands=BANDS_PLIA)
     plia_dc = process_datacube(plia_dc, items_plia, orbit_sig0, bands="MPLIA")
     print("projected local incidence angle processed")
 

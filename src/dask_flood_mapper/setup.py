@@ -1,7 +1,7 @@
+from pathlib import Path
 import yaml
 import dask
 from dask.distributed import Client
-from pathlib import Path
 import pystac_client
 
 dask.config.set(temporary_directory="/tmp")
