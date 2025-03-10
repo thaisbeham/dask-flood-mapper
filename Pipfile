@@ -4,10 +4,11 @@ verify_ssl = true
 name = "pip_conf_index_global"
 
 [packages]
+numpy = "<2"
 odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
 rioxarray = "*"
-dask-flood-mapper = {file = "."}
+dask-flood-mapper = {file = ".", editable = true}
 
 [dev-packages]
 eodc = "*"
@@ -22,6 +23,7 @@ hvplot = "*"
 datashader = "*"
 geoviews = "*"
 matplotlib = "*"
+jupyter-bokeh = "*"
 
 [requires]
 python_version = "3.10"
