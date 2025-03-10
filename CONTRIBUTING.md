@@ -36,14 +36,14 @@ Please report bugs with detail, background and sample code. Ideally the issue sh
 
 * A quick summary and/or background
 * Steps to reproduce
-    * Be specific
-    * Give sample code if possible
+    * Be specific!
+    * Give sample code, if possible
 * What you expected would happen
 * What actually happens
-* Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+* Notes (possibly including why you think this might be happening, or things that you tried and didn't work)
 
 ## Reference
-This section was adapted from [this guidelines](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62).
+This section was adapted from [this guideline](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62).
 
 ## Development 
 
