@@ -1,8 +1,8 @@
-from pathlib import Path
 import yaml
 import dask
 from dask.distributed import Client
 import pystac_client
+from importlib.resources import files
 
 dask.config.set(temporary_directory="/tmp")
 client = Client(processes=False, threads_per_worker=2, n_workers=3, memory_limit="28GB")
@@ -13,7 +13,7 @@ def load_config(yaml_file):
         return yaml.safe_load(file)
 
 
-CONFIG_PATH = Path(__file__).resolve().parent / "config.yaml"
+CONFIG_PATH = files("dask_flood_mapper").joinpath("config.yaml")
 config = load_config(CONFIG_PATH)
 
 

@@ -3,7 +3,7 @@ import numpy as np
 from odc import stac as odc_stac
 import rioxarray  # noqa
 from dask.distributed import wait
-from dask_flood_mapper.setup import config
+from dask_flood_mapper.catalog import config
 
 
 # import parameters from config.yaml file
