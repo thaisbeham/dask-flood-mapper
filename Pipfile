@@ -17,6 +17,8 @@ jupyter-book = "*"
 ruff = "*"
 pre-commit = "*"
 nbstripout = "*"
+eodc = "*"
+async-timeout = "*"
 
 [requires]
 python_version = "3.12"
