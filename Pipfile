@@ -4,20 +4,27 @@ verify_ssl = true
 name = "pip_conf_index_global"
 
 [packages]
+numpy = "<2"
 odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
-numpy = "==2.1"
 rioxarray = "*"
-dask-flood-mapper = {extras = ["test"], file = ".", editable = true}
+dask-flood-mapper = {file = ".", editable = true}
 
 [dev-packages]
+eodc = "*"
 pytest = "*"
-hvplot = "*"
+pytest-cov = "*"
 jupyter-book = "*"
-ruff = "*"
+dask-gateway = "*"
 pre-commit = "*"
+ruff = "*"
 nbstripout = "*"
-async-timeout = "*"
+hvplot = "*"
+datashader = "*"
+geoviews = "*"
+matplotlib = "*"
+jupyter-bokeh = "*"
 
 [requires]
-python_version = "3.12"
+python_version = "3.10"
+python_full_version = "3.10.12"
