@@ -6,18 +6,23 @@ name = "pip_conf_index_global"
 [packages]
 odc-stac = "*"
 dask = {extras = ["distributed"], version = "*"}
-numpy = "==2.1"
 rioxarray = "*"
-dask-flood-mapper = {extras = ["test"], file = ".", editable = true}
+dask-flood-mapper = {file = "."}
 
 [dev-packages]
+eodc = "*"
 pytest = "*"
-hvplot = "*"
+pytest-cov = "*"
 jupyter-book = "*"
-ruff = "*"
+dask-gateway = "*"
 pre-commit = "*"
+ruff = "*"
 nbstripout = "*"
-async-timeout = "*"
+hvplot = "*"
+datashader = "*"
+geoviews = "*"
+matplotlib = "*"
 
 [requires]
-python_version = "3.12"
+python_version = "3.10"
+python_full_version = "3.10.12"
