@@ -1,6 +1,6 @@
 ## Contributing
 
-Thank you for the interesse in contributing to this project! We accept contribution in the following fields:
+Thank you for the interest in contributing to this project! We accept contributions in the following areas:
 
 * Reporting a bug
 * Discussing the current state of the code
@@ -11,13 +11,13 @@ Thank you for the interesse in contributing to this project! We accept contribut
 
 We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
-### Propose changes with Pull requests
+### Propose changes with Pull Requests
 
-Pull requests(PR) are the best way to propose changes to the codebase. Before issuing the PR, make sure that:
+Pull Requests(PR) are the best way to propose changes to the codebase. Before issuing the PR, make sure that:
 
-1. Fork the repo and create your branch from main.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
+1. Fork the repository and create your branch from main.
+2. If you have added code that should be tested, add tests.
+3. If you have changed APIs, update the documentation.
 4. Ensure the test suite passes.
 5. Make sure your code lints.
 6. Issue that pull request!
