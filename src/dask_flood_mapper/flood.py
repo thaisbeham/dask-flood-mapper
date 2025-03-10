@@ -17,6 +17,7 @@ from dask_flood_mapper.processing import (
     process_sig0_dc,
     process_datacube,
     reproject_equi7grid,
+    BANDS_HPAR
 )
 from dask_flood_mapper.setup import config
 
@@ -24,17 +25,7 @@ from dask_flood_mapper.setup import config
 crs = config["base"]["crs"]
 chunks = config["base"]["chunks"]
 groupby = config["base"]["groupby"]
-BANDS_SIG0 = "VV"
-BANDS_HPAR = (
-    "C1",
-    "C2",
-    "C3",
-    "M0",
-    "S1",
-    "S2",
-    "S3",
-    "STD",
-)  # not possible to add to yaml file since is a ("a", "v") type
+BANDS_SIG0= "VV"
 BANDS_PLIA = "MPLIA"
 
 
