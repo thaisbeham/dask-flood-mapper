@@ -17,7 +17,7 @@ jupyter-book = "*"
 ruff = "*"
 pre-commit = "*"
 nbstripout = "*"
-eodc = "*"
+eodc = "2024.2.6"
 async-timeout = "*"
 
 [requires]
