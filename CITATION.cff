@@ -17,4 +17,4 @@ abstract: "Map floods with Sentinel-1 radar images. We replicate in this \
   Bayesian-based flood mapping algorithm. This implementation is entirely \
   based on Dask and data access via STAC with odc-stac. The algorithm requires \
   three pre-processed input datasets stored and accessible via STAC at the \
-  Earth Observation Data Centre For Water Resources Monitoring (EODC).
+  Earth Observation Data Centre For Water Resources Monitoring (EODC)."
