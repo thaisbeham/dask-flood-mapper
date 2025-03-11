@@ -13,3 +13,12 @@ sphinx:
   - 'sphinx.ext.doctest'
   - 'sphinx.ext.autodoc'
   - 'sphinx.ext.autosummary'
+  config:
+    html_theme_options:
+      home_page_in_toc: true
+      repository_url: https://github.com/TUW-GEO/dask-flood-mapper
+      repository_branch:
+      use_issues_button: true
+      use_repository_button: true
+      use_fullscreen_button: true
+      github_url: https://github.com/TUW-GEO
