@@ -6,7 +6,7 @@ name = "pip_conf_index_global"
 [packages]
 numpy = "<2"
 odc-stac = "*"
-dask = {extras = ["distributed"], version = "*"}
+dask = {extras = ["distributed"], version = "2025.2.0"}
 rioxarray = "*"
 dask-flood-mapper = {file = ".", editable = true}
 
