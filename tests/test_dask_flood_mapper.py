@@ -4,22 +4,30 @@ import numpy as np
 from unittest.mock import MagicMock, patch
 import pandas as pd
 import dask.array as da
-from dask_flood_mapper.processing import reproject_equi7grid
 import rioxarray  # noqa
+from importlib.resources import files
 
 from dask_flood_mapper.processing import (
     extract_orbit_names,
     post_process_eodc_cube,
     post_process_eodc_cube_,
     post_processing,
+    reproject_equi7grid,
+    process_sig0_dc,
+    process_datacube,
 )
 from dask_flood_mapper.calculation import (
     calc_water_likelihood,
     harmonic_expected_backscatter,
     bayesian_flood_decision,
+    calculate_flood_dc,
+    remove_speckles,
 )
-from dask_flood_mapper.processing import process_sig0_dc, process_datacube
-from dask_flood_mapper.calculation import calculate_flood_dc, remove_speckles
+from dask_flood_mapper.catalog import (
+    load_config,
+    set_user_config,
+    get_user_config,
+)
 
 
 class MockItemOrbit:
@@ -30,6 +38,21 @@ class MockItemOrbit:
             "sat:orbit_state": [orbit_state],
             "sat:relative_orbit": relative_orbit,
         }
+
+
+@pytest.fixture
+def load_config_test():
+    CONFIG_PATH = files("dask_flood_mapper").joinpath("config.yaml")
+    return load_config(CONFIG_PATH)
+
+
+def test_that_config_can_be_loaded(load_config_test):
+    assert isinstance(load_config_test, dict)
+
+
+def test_that_user_config_can_be_set(load_config_test):
+    set_user_config()
+    assert load_config(get_user_config() / "config.yaml") == load_config_test
 
 
 @pytest.fixture
