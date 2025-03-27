@@ -9,6 +9,7 @@ odc-stac = "*"
 dask = {version = "==2025.2.0", extras = ["distributed"]}
 rioxarray = "*"
 dask-flood-mapper = {file = ".", editable = true}
+appdirs = "*"
 
 [dev-packages]
 eodc = "*"
