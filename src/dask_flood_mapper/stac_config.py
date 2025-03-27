@@ -33,7 +33,7 @@ def set_user_config(user_config_dir=USER_CONFIG_DIR):
     return user_config_path
 
 
-def load_config():
-    yaml_file = set_user_config()
+def load_config(user_config_dir=USER_CONFIG_DIR):
+    yaml_file = set_user_config(user_config_dir)
     with open(yaml_file, "r") as file:
         return yaml.safe_load(file)

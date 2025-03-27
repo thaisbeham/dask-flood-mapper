@@ -5,7 +5,6 @@ from unittest.mock import MagicMock, patch
 import pandas as pd
 import dask.array as da
 import rioxarray  # noqa
-from importlib.resources import files
 import tempfile
 from pathlib import Path
 
@@ -25,10 +24,9 @@ from dask_flood_mapper.calculation import (
     calculate_flood_dc,
     remove_speckles,
 )
-from dask_flood_mapper.catalog import (
+from dask_flood_mapper.stac_config import (
     load_config,
     set_user_config,
-    get_user_config,
 )
 
 
@@ -49,8 +47,7 @@ USER_CONFIG_DIR = Path(temp_dir.name)
 
 @pytest.fixture
 def load_config_test():
-    CONFIG_PATH = files("dask_flood_mapper").joinpath("config.yaml")
-    return load_config(CONFIG_PATH)
+    return load_config()
 
 
 def test_that_config_can_be_loaded(load_config_test):
@@ -59,7 +56,7 @@ def test_that_config_can_be_loaded(load_config_test):
 
 def test_that_user_config_can_be_set(load_config_test):
     set_user_config(USER_CONFIG_DIR)
-    assert load_config(get_user_config(USER_CONFIG_DIR)) == load_config_test
+    assert load_config() == load_config_test
 
 
 @pytest.fixture
