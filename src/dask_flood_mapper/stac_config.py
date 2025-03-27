@@ -4,7 +4,6 @@ from pathlib import Path
 import shutil
 import yaml
 
-
 CONFIG_FILE = "config.yaml"
 CONFIG_PATH = files("dask_flood_mapper").joinpath(CONFIG_FILE)
 USER_CONFIG_DIR = Path(user_config_dir("dask_flood_mapper"))
@@ -26,7 +25,7 @@ def get_user_config(user_config_dir=USER_CONFIG_DIR):
 
 def set_user_config(user_config_dir=USER_CONFIG_DIR):
     if not user_config_dir.exists():
-        user_config_dir.mkdir()
+        user_config_dir.mkdir(parents=True)
     user_config_path = make_user_config_path(user_config_dir)
     if not user_config_path.exists():
         shutil.copy(CONFIG_PATH, user_config_path)
