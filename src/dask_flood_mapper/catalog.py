@@ -1,37 +1,7 @@
-import yaml
-import dask
-from dask.distributed import Client
 import pystac_client
-from importlib.resources import files
-from appdirs import user_config_dir
-from pathlib import Path
-import shutil
+from dask_flood_mapper.stac_config import load_config
 
-dask.config.set(temporary_directory="/tmp")
-client = Client(processes=False, threads_per_worker=2, n_workers=3, memory_limit="28GB")
-
-
-def load_config(yaml_file):
-    with open(yaml_file, "r") as file:
-        return yaml.safe_load(file)
-
-
-CONFIG_PATH = files("dask_flood_mapper").joinpath("config.yaml")
-USER_CONFIG_PATH = Path(user_config_dir("dask_flood_mapper")) / "config.yaml"
-
-config = load_config(CONFIG_PATH)
-
-
-def get_user_config():
-    if USER_CONFIG_PATH.exists():
-        return USER_CONFIG_PATH
-    else:
-        print("User configuration does not exist.")
-
-
-def set_user_config():
-    get_user_config()
-    return shutil.copy(CONFIG_PATH, USER_CONFIG_PATH / "config.yaml")
+config = load_config()
 
 
 def initialize_catalog():
