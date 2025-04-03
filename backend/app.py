@@ -6,17 +6,18 @@ from dask.distributed import Client
 import hvplot.xarray  # noqa
 import holoviews as hv
 import os
-from selenium import webdriver
-from webdriver_manager.firefox import GeckoDriverManager
+
+# from selenium import webdriver
+# from webdriver_manager.firefox import GeckoDriverManager
 import panel as pn
 
 hv.extension("bokeh")
 
 pn.extension("bokeh")
 
-driver = webdriver.Firefox(
-    service=webdriver.firefox.service.Service(GeckoDriverManager().install())
-)
+# driver = webdriver.Firefox(
+#    service=webdriver.firefox.service.Service(GeckoDriverManager().install())
+# )
 
 app = Flask(__name__)  # , static_folder="static", template_folder="../frontend")
 CORS(app)  # Allow frontend requests

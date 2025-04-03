@@ -68,6 +68,28 @@ Map the flood the same way as we have done when processing locally.
 flood.decision(bbox=bbox, datetime=time_range).compute()
 ```
 
+### User Interface
+
+It is also possible to run the workflow in user-friendly interface instead of the notebooks, as shown below:
+
+
+![alt text](<Screenshot from 2025-04-03 13-56-05.png>)
+
+To access it, being in the root directory, run the in terminal:
+
+```bash
+cd backend
+python app.py
+```
+
+Then click on the link that appears:
+
+```bash
+ Running on http://127.0.0.1:5000
+```
+
+It will open the UI in the web browser.
+
 ## Contributing Guidelines
 
 Please find the contributing guielines in the specific file [here](CONTRIBUTING.md).
