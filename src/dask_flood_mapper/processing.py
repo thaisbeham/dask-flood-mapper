@@ -60,6 +60,7 @@ def process_sig0_dc(sig0_dc, items_sig0, bands):
     return sig0_dc, orbit_sig0
 
 
+# dc
 def process_datacube(datacube, items_dc, orbit_sig0, bands):
     datacube = post_process_eodc_cube(datacube, items_dc, bands).rename(
         {"time": "orbit"}
