@@ -4,7 +4,6 @@ from odc import stac as odc_stac
 import rioxarray  # noqa
 from dask.distributed import wait
 from dask_flood_mapper.catalog import config
-from importlib.resources import files
 
 
 # import parameters from config.yaml file
@@ -60,7 +59,6 @@ def process_sig0_dc(sig0_dc, items_sig0, bands):
     return sig0_dc, orbit_sig0
 
 
-# dc
 def process_datacube(datacube, items_dc, orbit_sig0, bands):
     datacube = post_process_eodc_cube(datacube, items_dc, bands).rename(
         {"time": "orbit"}
@@ -119,7 +117,3 @@ def post_processing(dc):
 
 def reproject_equi7grid(dc, bbox, target_epsg="EPSG:4326"):
     return dc.rio.reproject(target_epsg).rio.clip_box(*bbox)
-
-
-data_text = files("dask_flood_mapper.data").joinpath("wcover.tif")
-wcover = xr.open_dataarray(data_text, band_as_variable=True)
