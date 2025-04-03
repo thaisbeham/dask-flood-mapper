@@ -25,11 +25,11 @@
     <h3>Selected Parameters:</h3>
     <pre id="debugInfo"></pre>  <!-- 🔹 Debugging section -->
     
-    <h3>Flood Matrix Result:</h3>
+    <h3>Flood Map Result:</h3>
     <pre id="result"></pre>
 
-    <!-- This image will display once the flood map is generated -->
-    <img id="floodImage" style="display:none; max-width: 100%;" alt="Flood Map">
+    
+    <iframe id="floodIframe" style="display:none; width: 100%; height: 600px; border: none;"></iframe>
 
     <script>
         let map = L.map('map').setView([0, 0], 2);
@@ -80,15 +80,24 @@
 
             const data = await response.json();
             console.log("Response received:", data);
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const iframe = document.getElementById('floodIframe');
+                if (!iframe) {
+                    console.error("Iframe not found. Make sure the HTML has rendered fully before accessing it.");
+                }
+            });
+
+
             if (data.image_url) {
                 console.log("Image URL:", data.image_url);  // Debug log
-                const img = document.getElementById('floodImage');
-                img.src = data.image_url + '?' + new Date().getTime(); // Prevent caching
-                img.style.display = 'block';
+                const iframe = document.getElementById('floodIframe');
+                iframe.src = data.image_url + '?' + new Date().getTime(); // Prevent caching
+                iframe.style.display = 'block';
             } else {
                 console.error("Failed to load image URL.");
             }
-            //document.getElementById('floodImage').src = data.image_url;
+            
         }
     </script>
 

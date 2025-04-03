@@ -37,7 +37,7 @@ def check_flood_status():
         return jsonify({"error": "Invalid bounding box"}), 400
     if not time_range:
         return jsonify({"error": "Invalid time range"}), 400
-
+    print("####### time range: ", time_range)
     try:
         # Call flood detection function
         client = Client(  # noqa
@@ -45,10 +45,6 @@ def check_flood_status():
         )  # noqa
         fd = flood.decision(bbox=bbox, datetime=time_range).compute()
         print("################### calculation done")
-
-        # data_text = files("dask_flood_mapper.data").joinpath("wcover.tif")
-        # wcover = xr.open_dataarray(data_text, band_as_variable=True)
-        # fd_masked = fd.where(wcover != 80)
 
         fd_plot = fd.hvplot.image(
             x="x",
@@ -63,16 +59,16 @@ def check_flood_status():
             frame_height=400,
         )
         print("############### plot done")
-        img_path = "static/flood_map.png"
+        img_path = "static/flood_map.html"
+        pn.panel(fd_plot).save(img_path, embed=True)
         hv.save(fd_plot, img_path, fmt="png", dpi=100)
         if os.path.exists(img_path):
             print("############## Image saved successfully.")
         else:
             print("################ Failed to save the image.")
 
-        # result = fd.tolist()  # Convert to list if needed
-        return jsonify({"image_url": "static/flood_map.png"}), 200
-        # return jsonify({"image_url": url_for('static', filename='flood_map.png', _external=True)}), 200
+        return jsonify({"image_url": "static/flood_map.html"}), 200
+
     except Exception as e:
         print(f"############## Error: {e}")
         return jsonify({"error": str(e)}), 500
