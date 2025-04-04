@@ -73,7 +73,7 @@ flood.decision(bbox=bbox, datetime=time_range).compute()
 It is also possible to run the workflow in user-friendly interface instead of the notebooks, as shown below:
 
 
-![alt text](<Screenshot from 2025-04-03 13-56-05.png>)
+![alt text](<docs/images/Screenshot from 2025-04-03 13-56-05.png>)
 
 To access it, being in the root directory, run the in terminal:
 
