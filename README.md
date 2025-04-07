@@ -70,22 +70,29 @@ flood.decision(bbox=bbox, datetime=time_range).compute()
 
 ### User Interface
 
+
 It is also possible to run the workflow in user-friendly interface instead of the notebooks, as shown below:
 
 
 ![alt text](<docs/images/Screenshot from 2025-04-03 13-56-05.png>)
 
+#### For windowns:
+
+
 To access it, being in the root directory, run the in terminal:
 
 ```bash
-cd backend
-python app.py
+./user_interface/run.bat
 ```
 
-Then click on the link that appears:
+It will open the UI in the web browser.
+
+#### For Mac/Linux
+
+To access it, being in the root directory, run the in terminal:
 
 ```bash
- Running on http://127.0.0.1:5000
+./user_interface/run.sh
 ```
 
 It will open the UI in the web browser.
