@@ -55,6 +55,8 @@ venv
 # make file markers
 .install*
 /.quarto/
+
+src/dask_flood_mapper/static/*.html
 notebooks/01_local_dask_files/
 site_libs/
 _book/
