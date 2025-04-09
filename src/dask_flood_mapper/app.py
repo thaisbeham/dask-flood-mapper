@@ -6,7 +6,7 @@ import hvplot.xarray  # noqa
 import os
 import panel as pn
 
-app = Flask(__name__)  # , static_folder="static", template_folder="../frontend")
+app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)  # Allow frontend requests
 
 
