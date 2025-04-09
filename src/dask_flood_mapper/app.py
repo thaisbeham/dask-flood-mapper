@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template
 from flask_cors import CORS
 from dask_flood_mapper import flood
-from dask.distributed import Client
 import hvplot.xarray  # noqa
 import os
 import panel as pn
@@ -30,9 +29,6 @@ def check_flood_status():
     print("####### time range: ", time_range)
     try:
         # Call flood detection function
-        client = Client(  # noqa
-            processes=False, threads_per_worker=2, n_workers=1, memory_limit="12GB"
-        )  # noqa
         fd = flood.decision(bbox=bbox, datetime=time_range).compute()
         print("################### calculation done")
 
