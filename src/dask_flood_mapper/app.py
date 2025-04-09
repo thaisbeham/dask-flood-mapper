@@ -49,9 +49,7 @@ def check_flood_status():
             frame_height=400,
         )
         print("############### plot done")
-        img_path = img_path = os.path.join(
-            app.static_folder, "flood_map.html"
-        )  # "static/flood_map.html"
+        img_path = img_path = os.path.join(app.static_folder, "flood_map.html")
         pn.panel(fd_plot).save(img_path, embed=True)
         if os.path.exists(img_path):
             print("############## Image saved successfully.")

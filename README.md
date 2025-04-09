@@ -14,6 +14,7 @@ To install the package, do the following:
 pip install git+https://github.com/TUW-GEO/dask-flood-mapper
 ```
 
+
 ## Usage
 
 Storm Babet hit the Denmark and Northern coast of Germany at the 20th of October 2023 [Wikipedia](https://en.wikipedia.org/wiki/Storm_Babet). Here an area around Zingst at the Baltic coast of Northern Germany is selected as the study area.
@@ -71,31 +72,20 @@ flood.decision(bbox=bbox, datetime=time_range).compute()
 ### User Interface
 
 
-It is also possible to run the workflow in user-friendly interface instead of the notebooks, as shown below:
+It is also possible to run the workflow in an user-friendly interface instead of the Jupyter notebooks, as shown below:
 
 
 ![alt text](<docs/images/Screenshot from 2025-04-03 13-56-05.png>)
 
-#### For windowns:
 
-
-To access it, being in the root directory, run the in terminal:
+To access it, simyply run the in terminal the command:
 
 ```bash
-./user_interface/run.bat
+floodmap
 ```
 
-It will open the UI in the web browser.
+It will open the GUI in the web browser.
 
-#### For Mac/Linux
-
-To access it, being in the root directory, run the in terminal:
-
-```bash
-./user_interface/run.sh
-```
-
-It will open the UI in the web browser.
 
 ## Contributing Guidelines
 
