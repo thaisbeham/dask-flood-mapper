@@ -5,10 +5,16 @@ import hvplot.xarray  # noqa
 import os
 import panel as pn
 
-template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "templates"))
-static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "static"))
-app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
-CORS(app)  # Allow frontend requests
+
+def create_app():
+    template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "templates"))
+    static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "static"))
+    app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+    CORS(app)  # Allow frontend requests
+    return app
+
+
+app = create_app()
 
 
 @app.route("/")
