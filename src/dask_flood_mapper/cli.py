@@ -1,6 +1,6 @@
 import webbrowser
 import threading
-from dask_flood_mapper.app import app  # or however your app is imported
+from dask_flood_mapper.app import app
 
 
 def open_browser():
