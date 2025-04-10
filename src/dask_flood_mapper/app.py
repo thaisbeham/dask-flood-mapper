@@ -22,9 +22,6 @@ if not USER_CACHE_DIR_.exists():
 user_cache_path = make_user_cache_path(USER_CACHE_DIR_)
 print("§§§§§§§§ user cache path:", user_cache_path)
 
-#BASE_DIR = Path(__file__).parent  # folder where your script lives
-#template_dir = BASE_DIR / "templates"
-#template_dir = "templates"
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "templates"))
 static_dir = USER_CACHE_DIR_
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
